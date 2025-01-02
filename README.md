@@ -17,6 +17,10 @@ tried to emulate brawlhalla's item throwing mechanic, where the thrown object in
 tried to imitate inscryption's camera using an event system and a tweening tool (DoTween). 
 ![Unity_fo48q5ycAo](https://github.com/user-attachments/assets/9103e7c2-e341-4754-a438-7fbb90f24e73)
 
+# soninis-slankiklis (Unity)
+top down shooter i did for a school project. combined a lot of knowledge i'd learned previously (enemy ai and pathfinding, hitboxes, vision cones, effects, etc.)
+![ezgif-1-a90620fbba](https://github.com/user-attachments/assets/318b7ecc-6aa2-4667-a022-97b18cea062b)
+
 # autobattle (Godot)
 created a flexible battle system with skills and stats, used godot's built in pathfinding.
 ![Godot_qkjQH90BVg](https://github.com/user-attachments/assets/1852e4f9-dec4-4506-afac-bc27fba25e88)
