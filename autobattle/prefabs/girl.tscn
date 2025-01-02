@@ -1,0 +1,259 @@
+[gd_scene load_steps=27 format=3 uid="uid://sx6h6jomlxsk"]
+
+[ext_resource type="Script" path="res://scripts/character/PlayerEntity.cs" id="1_lxy10"]
+[ext_resource type="Texture2D" uid="uid://dadogsc1i74di" path="res://assets/textures/characters/Girl-Sheet.png" id="2_cfat8"]
+[ext_resource type="Resource" uid="uid://ddqucqglbcddl" path="res://scripts/resources/BaseStats.tres" id="2_dv3t7"]
+[ext_resource type="Resource" uid="uid://cf4km06hgb45j" path="res://scripts/resources/skill/Fighter/SelfHeal.tres" id="2_q4nl3"]
+[ext_resource type="Script" path="res://scripts/resources/PlayerUnitStats.cs" id="2_uqvos"]
+[ext_resource type="Script" path="res://scripts/animation players/AnimationPlayer.cs" id="3_23wrw"]
+[ext_resource type="Script" path="res://scripts/components/MoveComponent.cs" id="3_gknn8"]
+[ext_resource type="Resource" uid="uid://ctkmdqh68wu7r" path="res://scripts/resources/skill/Fighter/BigSwing.tres" id="3_tchch"]
+[ext_resource type="Script" path="res://scripts/components/AttackComponent.cs" id="4_lijwu"]
+[ext_resource type="Resource" uid="uid://bc5bcwg7n3is7" path="res://scripts/resources/job/base/Fighter.tres" id="4_mthps"]
+[ext_resource type="Script" path="res://scripts/components/Hurtbox.cs" id="5_2708q"]
+[ext_resource type="Script" path="res://scripts/components/Health.cs" id="5_puvwd"]
+[ext_resource type="PackedScene" uid="uid://b4ibamc0li462" path="res://prefabs/component/overhead_health_bar.tscn" id="7_fsuil"]
+
+[sub_resource type="Resource" id="Resource_e0rr8"]
+script = ExtResource("2_uqvos")
+Name = "asd"
+Gender = "Female"
+BonusMaxHP = 0.0
+BonusMaxMP = 0.0
+BonusAttackPower = 5.0
+BonusAttackSpeed = 0.0
+BonusAttackRange = 0.0
+BonusDefence = 0.0
+BonusSpeed = 0.0
+JobInfos = Array[Object]([])
+Job = ExtResource("4_mthps")
+EquippedSkills = Array[Object]([ExtResource("2_q4nl3"), ExtResource("3_tchch")])
+
+[sub_resource type="Animation" id="Animation_a81na"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7hok6"]
+resource_name = "idle_down"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_0py7p"]
+resource_name = "idle_left"
+length = 0.80002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_nrh8d"]
+resource_name = "idle_right"
+length = 0.80002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_x1y6c"]
+resource_name = "idle_up"
+length = 0.80002
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_2ih3l"]
+resource_name = "walk_down"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_t1q61"]
+resource_name = "walk_left"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 24, 25, 26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_64s4q"]
+resource_name = "walk_right"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 29, 30, 31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_o6tct"]
+resource_name = "walk_up"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pa1pt"]
+_data = {
+"RESET": SubResource("Animation_a81na"),
+"idle_down": SubResource("Animation_7hok6"),
+"idle_left": SubResource("Animation_0py7p"),
+"idle_right": SubResource("Animation_nrh8d"),
+"idle_up": SubResource("Animation_x1y6c"),
+"walk_down": SubResource("Animation_2ih3l"),
+"walk_left": SubResource("Animation_t1q61"),
+"walk_right": SubResource("Animation_64s4q"),
+"walk_up": SubResource("Animation_o6tct")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odt5l"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xr6ga"]
+
+[node name="girl" type="CharacterBody2D" node_paths=PackedStringArray("Attack", "AnimationPlayer", "Move", "Hurtbox", "Health") groups=["allies"]]
+collision_layer = 2
+collision_mask = 3
+input_pickable = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_lxy10")
+PlayerUnitStats = SubResource("Resource_e0rr8")
+Stats = ExtResource("2_dv3t7")
+Attack = NodePath("Attack")
+AnimationPlayer = NodePath("AnimationPlayer")
+Move = NodePath("Move")
+Hurtbox = NodePath("Hurtbox")
+Health = NodePath("Health")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("2_cfat8")
+hframes = 44
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pa1pt")
+}
+script = ExtResource("3_23wrw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_odt5l")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("3_gknn8")
+
+[node name="Attack" type="Node" parent="."]
+script = ExtResource("4_lijwu")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_puvwd")
+
+[node name="OverheadHealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_fsuil")]
+offset_left = -13.0
+offset_top = -23.0
+offset_right = 35.0
+offset_bottom = -14.0
+scale = Vector2(0.545822, 0.545822)
+health = NodePath("../Health")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -6)
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("5_2708q")
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_xr6ga")
+debug_color = Color(4.81308e-08, 0.647894, 0.197878, 0.42)
+
+[connection signal="input_event" from="Hurtbox" to="Hurtbox" method="_on_input_event"]

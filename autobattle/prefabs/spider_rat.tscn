@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=3 uid="uid://bpvuidw7l0nnv"]
+
+[ext_resource type="Script" path="res://scripts/character/EnemyEntity.cs" id="1_eadt5"]
+[ext_resource type="Texture2D" uid="uid://cicc0vywo76bp" path="res://assets/textures/enemies/Icon2.png" id="2_2xjia"]
+[ext_resource type="Resource" uid="uid://biph6jcj8nvdf" path="res://scripts/resources/enemies/SpiderRat.tres" id="2_d2wc1"]
+[ext_resource type="Script" path="res://scripts/resources/EnemyUnitStats.cs" id="2_s7pm1"]
+[ext_resource type="Script" path="res://scripts/components/MoveComponent.cs" id="3_h2vep"]
+[ext_resource type="Script" path="res://scripts/animation players/StaticSpriteAnimationPlayer.cs" id="3_qmff1"]
+[ext_resource type="Script" path="res://scripts/components/Hurtbox.cs" id="4_djkn8"]
+[ext_resource type="Script" path="res://scripts/components/AttackComponent.cs" id="4_ojaq6"]
+[ext_resource type="PackedScene" uid="uid://b4ibamc0li462" path="res://prefabs/component/overhead_health_bar.tscn" id="5_bkm6j"]
+[ext_resource type="Script" path="res://scripts/components/Health.cs" id="5_tc474"]
+[ext_resource type="Script" path="res://scripts/components/Pathfinder.cs" id="9_wug0c"]
+
+[sub_resource type="Resource" id="Resource_k0jir"]
+script = ExtResource("2_s7pm1")
+Name = "Spider Rat"
+Level = 1
+KillXP = 1
+Skills = Array[Object]([])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qwc81"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2c1e"]
+
+[node name="spider rat" type="CharacterBody2D" node_paths=PackedStringArray("Attack", "AnimationPlayer", "Move", "Hurtbox", "Health", "Pathfinder") groups=["enemies"]]
+position = Vector2(0, -3)
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_eadt5")
+EnemyUnitStats = SubResource("Resource_k0jir")
+EnemyGroup = "allies"
+Stats = ExtResource("2_d2wc1")
+Attack = NodePath("Attack")
+AnimationPlayer = NodePath("AnimationPlayer")
+Move = NodePath("Move")
+Hurtbox = NodePath("Hurtbox")
+Health = NodePath("Health")
+Pathfinder = NodePath("Pathfinder")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_2xjia")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+script = ExtResource("3_qmff1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_qwc81")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("3_h2vep")
+
+[node name="Attack" type="Node" parent="."]
+script = ExtResource("4_ojaq6")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_tc474")
+
+[node name="OverheadHealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_bkm6j")]
+offset_left = -24.0
+offset_top = -19.0
+offset_right = 24.0
+offset_bottom = -10.0
+health = NodePath("../Health")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 3)
+collision_layer = 128
+collision_mask = 4
+script = ExtResource("4_djkn8")
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+scale = Vector2(1.6113, 1.6113)
+shape = SubResource("CircleShape2D_e2c1e")
+debug_color = Color(0, 0.647059, 0.196078, 0.419608)
+
+[node name="Pathfinder" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 20.0
+script = ExtResource("9_wug0c")

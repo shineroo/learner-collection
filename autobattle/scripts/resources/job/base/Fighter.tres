@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Job" load_steps=4 format=3 uid="uid://bc5bcwg7n3is7"]
+
+[ext_resource type="Resource" uid="uid://ctkmdqh68wu7r" path="res://scripts/resources/skill/Fighter/BigSwing.tres" id="1_205k2"]
+[ext_resource type="Resource" uid="uid://cf4km06hgb45j" path="res://scripts/resources/skill/Fighter/SelfHeal.tres" id="2_66w8a"]
+[ext_resource type="Script" path="res://scripts/resources/job/Job.cs" id="2_neev2"]
+
+[resource]
+script = ExtResource("2_neev2")
+JobName = "Fighter"
+Skills = Array[Object]([ExtResource("1_205k2"), ExtResource("2_66w8a")])
+JobRequirementsKey = PackedStringArray()
+JobRequirementsValue = PackedInt32Array()

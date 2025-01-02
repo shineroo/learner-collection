@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SelfHealSkill" load_steps=2 format=3 uid="uid://cf4km06hgb45j"]
+
+[ext_resource type="Script" path="res://scripts/resources/skill/SelfHealSkill.cs" id="1_u2ei2"]
+
+[resource]
+script = ExtResource("1_u2ei2")
+heal = 500.0
+SkillName = "Self heal"
+Cooldown = 10.0
+ManaCost = 0

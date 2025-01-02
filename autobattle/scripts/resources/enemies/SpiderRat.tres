@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BaseStats" load_steps=2 format=3 uid="uid://biph6jcj8nvdf"]
+
+[ext_resource type="Script" path="res://scripts/resources/BaseStats.cs" id="1_g5lka"]
+
+[resource]
+script = ExtResource("1_g5lka")
+MaxHP = 40.0
+MaxMP = 0.0
+AttackPower = 11.0
+AttackSpeed = 2.0
+AttackRange = 20.0
+Defence = 0.0
+Speed = 80.0

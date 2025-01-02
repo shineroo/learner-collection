@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FlatDamageSkill" load_steps=2 format=3 uid="uid://ctkmdqh68wu7r"]
+
+[ext_resource type="Script" path="res://scripts/resources/skill/FlatDamageSkill.cs" id="1_sr6wk"]
+
+[resource]
+script = ExtResource("1_sr6wk")
+damage = 4.0
+range = 20.0
+SkillName = "BigSwing"
+Cooldown = 25.0
+ManaCost = 0

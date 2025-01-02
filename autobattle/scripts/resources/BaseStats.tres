@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BaseStats" load_steps=2 format=3 uid="uid://ddqucqglbcddl"]
+
+[ext_resource type="Script" path="res://scripts/resources/BaseStats.cs" id="1_ju4av"]
+
+[resource]
+script = ExtResource("1_ju4av")
+MaxHP = 80.0
+MaxMP = 10.0
+AttackPower = 3.0
+AttackSpeed = 2.0
+AttackRange = 20.0
+Defence = 0.0
+Speed = 60.0

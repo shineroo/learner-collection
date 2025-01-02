@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DamageSkill" load_steps=2 format=3 uid="uid://noffokjin8he"]
+
+[ext_resource type="Script" path="res://scripts/resources/skill/DamageSkill.cs" id="1_a2fmu"]
+
+[resource]
+script = ExtResource("1_a2fmu")
+DamageMult = 1.0
+SkillName = "Basic Attack"
+Cooldown = 3.0
+ManaCost = 0
