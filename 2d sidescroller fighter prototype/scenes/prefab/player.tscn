@@ -1,0 +1,213 @@
+[gd_scene load_steps=26 format=3 uid="uid://ckrh35xcyqifw"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_xryyk"]
+[ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="3_d1c3g"]
+[ext_resource type="AnimationLibrary" uid="uid://dy2p7odis4i2d" path="res://asset/Animations/player.res" id="4_p8ct5"]
+[ext_resource type="Texture2D" uid="uid://bd2dh0q8rswh" path="res://asset/entity/player/run cycle 48x48.png" id="6_5d7nx"]
+[ext_resource type="Script" path="res://Components/HealthComponent.cs" id="6_8xptu"]
+[ext_resource type="Script" path="res://Components/MoveComponent.cs" id="7_42tkq"]
+[ext_resource type="Script" path="res://Components/AttackComponent.cs" id="8_be510"]
+[ext_resource type="Script" path="res://scripts/Hitbox.cs" id="9_1dt67"]
+[ext_resource type="Script" path="res://Components/StateComponent.cs" id="9_bltbd"]
+[ext_resource type="Script" path="res://scripts/State/RunState.cs" id="10_njcmm"]
+[ext_resource type="Script" path="res://scripts/State/IdleState.cs" id="11_h8y76"]
+[ext_resource type="Script" path="res://scripts/State/JumpState.cs" id="12_35qyv"]
+[ext_resource type="Script" path="res://scripts/State/FallState.cs" id="13_83kqp"]
+[ext_resource type="Script" path="res://scripts/State/AttackState.cs" id="14_qc65h"]
+[ext_resource type="Script" path="res://Components/HurtboxComponent.cs" id="16_lbi3m"]
+[ext_resource type="Script" path="res://scripts/State/HitStunState.cs" id="16_lun2x"]
+[ext_resource type="Script" path="res://scripts/State/DashAttackState.cs" id="17_qug87"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1n6tv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cat52"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p425c"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciylk"]
+size = Vector2(35, 40.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s15st"]
+size = Vector2(49, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hv4j8"]
+size = Vector2(65, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a4lm0"]
+radius = 27.0185
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12plo"]
+size = Vector2(30, 30)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xryyk")
+
+[node name="Sprite" type="Sprite2D" parent="." node_paths=PackedStringArray("_animationPlayer")]
+texture = ExtResource("6_5d7nx")
+hframes = 10
+script = ExtResource("3_d1c3g")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+root_node = NodePath("../..")
+libraries = {
+"": ExtResource("4_p8ct5"),
+"Player": SubResource("AnimationLibrary_1n6tv")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_cat52")
+
+[node name="MoveComponent" type="Node" parent="."]
+script = ExtResource("7_42tkq")
+_speed = 150.0
+_jumpVelocity = -300.0
+_gravity = 900.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_8xptu")
+maxHealth = 100
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("16_lbi3m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_p425c")
+debug_color = Color(0.184314, 0.643137, 0, 0.419608)
+
+[node name="AttackComponent" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("8_be510")
+entity = NodePath("..")
+
+[node name="Attack1" type="CollisionShape2D" parent="AttackComponent"]
+visible = false
+position = Vector2(10.5, -4)
+shape = SubResource("RectangleShape2D_ciylk")
+debug_color = Color(0.956863, 0, 0.533333, 0.419608)
+script = ExtResource("9_1dt67")
+damage = 3
+knockback = Vector2(100, -50)
+stun = 1.0
+
+[node name="Attack2" type="CollisionShape2D" parent="AttackComponent"]
+visible = false
+position = Vector2(17.5, 1.5)
+shape = SubResource("RectangleShape2D_s15st")
+disabled = true
+debug_color = Color(0.956863, 0, 0.529412, 0.419608)
+script = ExtResource("9_1dt67")
+damage = 4
+knockback = Vector2(130, -30)
+stun = 1.0
+
+[node name="Attack3" type="CollisionShape2D" parent="AttackComponent"]
+visible = false
+position = Vector2(25.5, 2)
+shape = SubResource("RectangleShape2D_hv4j8")
+disabled = true
+debug_color = Color(0.960784, 0, 0.509804, 0.419608)
+script = ExtResource("9_1dt67")
+damage = 8
+knockback = Vector2(250, -120)
+stun = 2.0
+
+[node name="AirSpin" type="CollisionShape2D" parent="AttackComponent"]
+visible = false
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_a4lm0")
+debug_color = Color(0.956863, 0, 0.537255, 0.419608)
+script = ExtResource("9_1dt67")
+damage = 2
+knockback = Vector2(100, -120)
+stun = 0.5
+
+[node name="Dash" type="CollisionShape2D" parent="AttackComponent"]
+visible = false
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_12plo")
+debug_color = Color(0.960784, 0, 0.505882, 0.419608)
+script = ExtResource("9_1dt67")
+damage = 2
+knockback = Vector2(250, -100)
+stun = 0.5
+
+[node name="StateComponent" type="Node" parent="." node_paths=PackedStringArray("_entityComponent", "_moveComponent")]
+script = ExtResource("9_bltbd")
+initialState = NodePath("Idle")
+_entityComponent = NodePath("..")
+_moveComponent = NodePath("../MoveComponent")
+
+[node name="Run" type="Node" parent="StateComponent"]
+script = ExtResource("10_njcmm")
+
+[node name="Idle" type="Node" parent="StateComponent"]
+script = ExtResource("11_h8y76")
+
+[node name="Jump" type="Node" parent="StateComponent"]
+script = ExtResource("12_35qyv")
+
+[node name="Fall" type="Node" parent="StateComponent"]
+script = ExtResource("13_83kqp")
+
+[node name="Attack1" type="Node" parent="StateComponent" node_paths=PackedStringArray("nextAttack", "defaultState")]
+script = ExtResource("14_qc65h")
+nextAttack = NodePath("../Attack2")
+defaultState = NodePath("../Idle")
+attackMoveModifier = 3.0
+jumpCancelable = true
+
+[node name="Attack2" type="Node" parent="StateComponent" node_paths=PackedStringArray("nextAttack", "defaultState")]
+script = ExtResource("14_qc65h")
+nextAttack = NodePath("../Attack3")
+defaultState = NodePath("../Idle")
+attackMoveModifier = 3.0
+jumpCancelable = true
+
+[node name="Attack3" type="Node" parent="StateComponent" node_paths=PackedStringArray("nextAttack", "defaultState")]
+script = ExtResource("14_qc65h")
+nextAttack = NodePath("../Idle")
+defaultState = NodePath("../Idle")
+attackMoveModifier = 3.0
+jumpCancelable = true
+
+[node name="AirSpin" type="Node" parent="StateComponent" node_paths=PackedStringArray("nextAttack", "defaultState")]
+script = ExtResource("14_qc65h")
+nextAttack = NodePath("../Fall")
+defaultState = NodePath("../Fall")
+canMove = true
+jumpCancelable = true
+landCancelable = true
+
+[node name="HitStun" type="Node" parent="StateComponent"]
+script = ExtResource("16_lun2x")
+
+[node name="Dash" type="Node" parent="StateComponent"]
+script = ExtResource("17_qug87")
+interruptable = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3.18, 3.18)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[connection signal="AnimationFinished" from="Sprite" to="StateComponent/Attack1" method="_on_sprite_animation_finished"]
+[connection signal="AnimationFinished" from="Sprite" to="StateComponent/Attack2" method="_on_sprite_animation_finished"]
+[connection signal="AnimationFinished" from="Sprite" to="StateComponent/Attack3" method="_on_sprite_animation_finished"]
+[connection signal="AnimationFinished" from="Sprite" to="StateComponent/AirSpin" method="_on_sprite_animation_finished"]
+[connection signal="animation_finished" from="Sprite/AnimationPlayer" to="Sprite" method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
+[connection signal="ChangedState" from="StateComponent" to="Sprite" method="_on_state_component_changed_state"]
+[connection signal="DisableHitbox" from="StateComponent" to="AttackComponent" method="_on_state_component_disable_hitbox"]
+[connection signal="EnableHitbox" from="StateComponent" to="AttackComponent" method="_on_state_component_enable_hitbox"]
